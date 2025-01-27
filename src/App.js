@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJoke } from "./jokeSlice";
-import './index.css';
+import './index.css'
 
 function App() {
   const [category, setCategory] = useState("");
@@ -28,22 +28,15 @@ function App() {
 
   function handleChangeCategory(e) {
     setCategory(e.target.value);
-    setError("");  // Clear error when user changes the category
+    setError("");
   }
 
   function handleFetch() {
-    if (category.trim() === "") {
-      setError("Category cannot be empty.");
-      return;
-    }
-
-    // Check if entered category is valid
-    if (!validCategories.includes(category.toLowerCase())) {
+    if (!validCategories.includes(category)) {
       setError("No category found. Please enter a valid category.");
       return;
     }
 
-    setError("");  // Clear error if category is valid
     dispatch(fetchJoke(category));
   }
 
@@ -56,15 +49,15 @@ function App() {
       <h1 className="heading">Fun Jokes Generator</h1>
 
       <div className="form-container">
-        <input
-          type="text"
-          placeholder="Enter category"
-          onChange={handleChangeCategory}
-          value={category}
+        <input 
+          type="text" 
+          placeholder="Enter category" 
+          onChange={handleChangeCategory} 
+          value={category} 
         />
-        <button
-          onClick={handleFetch}
-          disabled={!category.trim()}  // Disable button if category is empty
+        <button 
+          onClick={handleFetch} 
+          disabled={!category}
         >
           {category ? `Get ${category} Joke` : "Enter Category to Get Joke"}
         </button>
