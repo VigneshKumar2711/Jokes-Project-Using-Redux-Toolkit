@@ -28,15 +28,22 @@ function App() {
 
   function handleChangeCategory(e) {
     setCategory(e.target.value);
-    setError("");
+    setError("");  // Clear error when user changes the category
   }
 
   function handleFetch() {
-    if (!validCategories.includes(category)) {
+    if (category.trim() === "") {
+      setError("Category cannot be empty.");
+      return;
+    }
+
+    // Check if entered category is valid
+    if (!validCategories.includes(category.toLowerCase())) {
       setError("No category found. Please enter a valid category.");
       return;
     }
 
+    setError("");  // Clear error if category is valid
     dispatch(fetchJoke(category));
   }
 
@@ -57,7 +64,7 @@ function App() {
         />
         <button
           onClick={handleFetch}
-          disabled={!category} // Disable button if category is empty
+          disabled={!category.trim()}  // Disable button if category is empty
         >
           {category ? `Get ${category} Joke` : "Enter Category to Get Joke"}
         </button>
